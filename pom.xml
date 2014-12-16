@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>study-course-unsw</groupId>
+  <artifactId>study-course-unsw</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <description>A project for integrating information of course, assignment deadline and examinations in UNSW</description>
+	<properties>
+		<spring.version>3.2.12.RELEASE</spring.version>
+		<mybatis-spring.version>1.2.2</mybatis-spring.version>
+		<jdk.version>1.7</jdk.version>
+	</properties>	
+	<dependencies>
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+	</dependencies>
+</project>
