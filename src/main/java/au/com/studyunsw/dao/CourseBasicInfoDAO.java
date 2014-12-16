@@ -9,7 +9,7 @@ import au.com.studyunsw.model.*;
  * @author range-ubuntu
  *
  */
-public interface CourseBasicInfoDAO {
+public interface CourseBasicInfoDAO { 
 	/**
 	 * Retrieve all courses<br />
 	 * @return courses list
