@@ -3,7 +3,8 @@ package au.com.studyunsw.model;
 import java.util.Date;
 
 /**
- * Model of user<br />
+ * Model of user<br/>
+ * Stored in database as a table called UserLogin<br/>
  * @author range-ubuntu
  *
  */

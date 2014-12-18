@@ -3,7 +3,8 @@ package au.com.studyunsw.model;
 import java.util.Date;
 
 /**
- * Model of basic information of each course<br />
+ * Model of basic information of each course<br/>
+ * Stored in database as a table called Course<br/>
  * @author range-ubuntu
  *
  */

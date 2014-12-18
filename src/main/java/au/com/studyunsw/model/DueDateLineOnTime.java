@@ -3,7 +3,8 @@ package au.com.studyunsw.model;
 import java.util.Date;
 
 /**
- * Model of due date time line information<br />
+ * Model of due date time line information<br/>
+ * Stored in the table TimeLine<br/>
  * @author range-ubuntu
  *
  */
