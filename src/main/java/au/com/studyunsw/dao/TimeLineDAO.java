@@ -63,7 +63,7 @@ public interface TimeLineDAO {
 	 *            time line object
 	 * @return if the update is successful
 	 */
-	boolean udpateLine(DueDateLineOnTime line);
+	boolean updateLine(DueDateLineOnTime line);
 
 	/**
 	 * Remove a time line record<br />

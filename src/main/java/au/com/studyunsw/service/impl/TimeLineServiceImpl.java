@@ -1,17 +1,33 @@
 package au.com.studyunsw.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import au.com.studyunsw.commons.OprStatus;
+import au.com.studyunsw.dao.AsgtItemDAO;
+import au.com.studyunsw.dao.ExamItemDAO;
+import au.com.studyunsw.dao.TimeLineDAO;
+import au.com.studyunsw.dao.TimeLineItemDAO;
+import au.com.studyunsw.deprecated.UserItemDAO_D;
 import au.com.studyunsw.model.DueDateLineOnTime;
+import au.com.studyunsw.model.comparator.TimeLineComparator;
+import au.com.studyunsw.model.comparator.TimeLineItemComparator;
 import au.com.studyunsw.model.timelineitem.TimeLineItem;
 import au.com.studyunsw.model.timelineitem.UserItem;
 import au.com.studyunsw.service.TimeLineService;
 
 @Service
 public class TimeLineServiceImpl implements TimeLineService {
+	@Autowired
+	private TimeLineDAO lineDao;
+	private TimeLineItemDAO itemDao;
+	private AsgtItemDAO asgtDao;
+	private ExamItemDAO examDao;
 
 	@Override
 	public List<DueDateLineOnTime> getAllTimeLine() {
@@ -39,56 +55,184 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 	@Override
 	public List<TimeLineItem> getItemsFromTimeLine(long timeLineId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TimeLineItem> items = new ArrayList<>();
+		try {
+			// user items
+			items = itemDao.getItemsInTimeLine(timeLineId);
+
+			// system items
+			items.addAll(asgtDao.getItemsInTimeLine(timeLineId));
+			items.addAll(examDao.getItemsInTimeLine(timeLineId));
+
+			// sort by due date in ascending order
+			Collections.sort(items, new TimeLineItemComparator());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return items;
 	}
 
 	@Override
 	public List<TimeLineItem> getAllAutoGenItemsFromLine(long timeLineId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TimeLineItem> systemItems = new ArrayList<>();
+		try {
+			systemItems = asgtDao.getItemsInTimeLine(timeLineId);
+			systemItems.addAll(examDao.getItemsInTimeLine(timeLineId));
+			Collections.sort(systemItems, new TimeLineItemComparator());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return systemItems;
 	}
 
 	@Override
 	public List<TimeLineItem> getAllUserItemsFromLine(long timeLineId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TimeLineItem> userItems = new ArrayList<>();
+
+		try {
+			userItems = itemDao.getItemsInTimeLine(timeLineId);
+			Collections.sort(userItems, new TimeLineItemComparator());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return userItems;
 	}
 
 	@Override
 	public List<DueDateLineOnTime> getUserTimeLine(long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<DueDateLineOnTime> lines = new ArrayList<>();
+		try {
+			lines = lineDao.getLineByUser(userId);
+			Collections.sort(lines, new TimeLineComparator());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return lines;
 	}
 
 	@Override
 	public int createNewTimeLine(DueDateLineOnTime timeLine) {
-		// TODO Auto-generated method stub
-		return 0;
+		// check data null
+		if (timeLine == null) {
+			return OprStatus.DATA_OBJECT_NULL;
+		}
+
+		// check logging in
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+
+		// check time line name, empty string if null
+		if (timeLine.getTimeLineName() == null) {
+			timeLine.setTimeLineName("");
+		}
+
+		timeLine.setCreateAt(new Date());
+
+		try {
+			boolean isCreated = lineDao.insertNewLine(timeLine);
+			if (!isCreated) {
+				return OprStatus.DAO_EXCEPTION;
+			}
+		} catch (Exception e) {
+			// this false indicates server DAO exception
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+
+		return OprStatus.SUCCESS;
 	}
 
 	@Override
-	public boolean modifyTimeLine(DueDateLineOnTime timeLine) {
-		// TODO Auto-generated method stub
-		return false;
+	public int modifyTimeLine(DueDateLineOnTime timeLine) {
+		// check data null
+		if (timeLine == null) {
+			return OprStatus.DATA_OBJECT_NULL;
+		}
+
+		// check logging in
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+
+		// check time line name, empty string if null
+		if (timeLine.getTimeLineName() == null) {
+			timeLine.setTimeLineName("");
+		}
+
+		timeLine.setCreateAt(new Date());
+
+		try {
+			boolean isUpdated = lineDao.updateLine(timeLine);
+			if (!isUpdated) {
+				return OprStatus.DAO_EXCEPTION;
+			}
+		} catch (Exception e) {
+			// this false indicates server DAO exception
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+
+		return OprStatus.SUCCESS;
 	}
 
 	@Override
-	public boolean removeTimeLine(DueDateLineOnTime timeLine) {
-		// TODO Auto-generated method stub
-		return false;
+	public int removeTimeLine(DueDateLineOnTime timeLine) {
+		// / check data null
+		if (timeLine == null) {
+			return OprStatus.DATA_OBJECT_NULL;
+		}
+
+		// check logging in
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+
+		// remove all the items of the time line
+		try {
+			boolean isItemsRemoved = itemDao.removeItemInTimeLine(timeLine
+					.getTimeLineId());
+			if (!isItemsRemoved) {
+				return OprStatus.DAO_EXCEPTION;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+
+		// remove the time line itself
+		try {
+			boolean isRemoved = lineDao.removeLine(timeLine);
+			if (!isRemoved) {
+				return OprStatus.DAO_EXCEPTION;
+			}
+		} catch (Exception e) {
+			// this false indicates server DAO exception
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+
+		return OprStatus.SUCCESS;
 	}
 
 	@Override
 	public int addSystemItemToTimeLine(DueDateLineOnTime timeLine) {
 		// TODO Auto-generated method stub
-		return 0;
+		return OprStatus.SUCCESS;
 	}
 
 	@Override
 	public int addItemToTimeLine(DueDateLineOnTime timeLine, UserItem item) {
 		// TODO Auto-generated method stub
-		return 0;
+		return OprStatus.SUCCESS;
 	}
 
 	@Override

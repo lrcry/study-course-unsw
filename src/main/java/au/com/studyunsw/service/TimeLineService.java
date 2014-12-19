@@ -74,7 +74,7 @@ public interface TimeLineService {
 	 *            time line object
 	 * @return if successfully modified
 	 */
-	boolean modifyTimeLine(DueDateLineOnTime timeLine);
+	int modifyTimeLine(DueDateLineOnTime timeLine);
 
 	/**
 	 * Remove the time line with all of its items<br/>
@@ -83,7 +83,7 @@ public interface TimeLineService {
 	 *            time line object
 	 * @return if successfully removed
 	 */
-	boolean removeTimeLine(DueDateLineOnTime timeLine);
+	int removeTimeLine(DueDateLineOnTime timeLine);
 
 	/**
 	 * Automatically add system items for a user<br/>
