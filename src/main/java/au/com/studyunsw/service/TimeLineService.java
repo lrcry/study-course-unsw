@@ -2,8 +2,8 @@ package au.com.studyunsw.service;
 
 import java.util.*;
 
+import au.com.studyunsw.model.timelineitem.*;
 import au.com.studyunsw.model.DueDateLineOnTime;
-import au.com.studyunsw.model.TimeLineItem;
 
 /**
  * Service generating due date time line.<br/>
@@ -32,6 +32,24 @@ public interface TimeLineService {
 	List<TimeLineItem> getItemsFromTimeLine(long timeLineId);
 
 	/**
+	 * Retrieve all system-generated items (assignments, exams) from a time line<br/>
+	 * 
+	 * @param timeLineId
+	 *            time line ID
+	 * @return list of system items
+	 */
+	List<TimeLineItem> getAllAutoGenItemsFromLine(long timeLineId);
+
+	/**
+	 * Retrieve all user-created items from a time line<br/>
+	 * 
+	 * @param timeLineId
+	 *            time line ID
+	 * @return list of user items
+	 */
+	List<TimeLineItem> getAllUserItemsFromLine(long timeLineId);
+
+	/**
 	 * Get all time lines for a user<br/>
 	 * 
 	 * @param userId
@@ -45,9 +63,9 @@ public interface TimeLineService {
 	 * 
 	 * @param timeLine
 	 *            time line
-	 * @return if successfully created
+	 * @return operation status code
 	 */
-	boolean createNewTimeLine(DueDateLineOnTime timeLine);
+	int createNewTimeLine(DueDateLineOnTime timeLine);
 
 	/**
 	 * Modify an existing time line (i.e. name of a time line, etc.)<br/>
@@ -59,15 +77,31 @@ public interface TimeLineService {
 	boolean modifyTimeLine(DueDateLineOnTime timeLine);
 
 	/**
-	 * Add an item to time line<br/>
+	 * Remove the time line with all of its items<br/>
+	 * 
+	 * @param timeLine
+	 *            time line object
+	 * @return if successfully removed
+	 */
+	boolean removeTimeLine(DueDateLineOnTime timeLine);
+
+	/**
+	 * Automatically add system items for a user<br/>
+	 * @param timeLine time line object
+	 * @return operation status code
+	 */
+	int addSystemItemToTimeLine(DueDateLineOnTime timeLine);
+	
+	/**
+	 * User add an item to time line<br/>
 	 * 
 	 * @param timeLine
 	 *            time line object (to get the time line ID)
 	 * @param item
-	 *            item object
-	 * @return if successfully added
+	 *            user item object
+	 * @return operation status code
 	 */
-	boolean addItemToTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+	int addItemToTimeLine(DueDateLineOnTime timeLine, UserItem item);
 
 	/**
 	 * Update an item of some time line<br/>
@@ -76,9 +110,9 @@ public interface TimeLineService {
 	 *            time line object
 	 * @param item
 	 *            item object
-	 * @return if successfully updated
+	 * @return operation status code
 	 */
-	boolean updateItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+	int updateItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
 
 	/**
 	 * Remove an item from some time line<br/>

@@ -2,12 +2,13 @@ package au.com.studyunsw.dao;
 
 import java.util.*;
 
-import au.com.studyunsw.model.*;
+import au.com.studyunsw.model.timelineitem.*;
 
 /**
  * DAO for TimeLineItem and the table named that<br />
+ * 
  * @author range-ubuntu
- *
+ * 
  */
 public interface TimeLineItemDAO {
 	/**
@@ -101,4 +102,13 @@ public interface TimeLineItemDAO {
 	 * @return if the remove is successful
 	 */
 	boolean removeItem(TimeLineItem item);
+
+	/**
+	 * Remove all items in a time line<br/>
+	 * 
+	 * @param timeLineId
+	 *            time line ID
+	 * @return if the remove is successful
+	 */
+	boolean removeItemInTimeLine(long timeLineId);
 }
