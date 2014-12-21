@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE configuration   
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Rename the class, to be shorter -->
+	<typeAliases>
+		<typeAlias type="au.com.studyunsw.model.Assignment" alias="Assignment"/>
+		<typeAlias type="au.com.studyunsw.model.CourseBasicInfo" alias="Course"/>
+		<typeAlias type="au.com.studyunsw.model.DueDateLineOnTime" alias="TimeLine"/>
+		<typeAlias type="au.com.studyunsw.model.Exam" alias="Exam"/>
+		<typeAlias type="au.com.studyunsw.model.User" alias="User"/>
+		<typeAlias type="au.com.studyunsw.model.UserCourse" alias="UserCourse"/>
+		<typeAlias type="au.com.studyunsw.model.timelineitem.AsgtItem" alias="AsgtItem"/>
+		<typeAlias type="au.com.studyunsw.model.timelineitem.ExamItem" alias="ExamItem"/>
+		<typeAlias type="au.com.studyunsw.model.timelineitem.SystemItem" alias="SystemItem"/>
+		<typeAlias type="au.com.studyunsw.model.timelineitem.TimeLineItem" alias="TimeLineItem"/>
+		<typeAlias type="au.com.studyunsw.model.timelineitem.UserItem" alias="UserItem"/>
+	</typeAliases>
+	
+	<!-- mapper is implemented by xml, we only need an interface of mapper there -->
+	<mappers><!-- spring will take this -->
+	</mappers>
+</configuration> 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.AsgtDAO">
+	<insert id="insertNewAssignment" parameterType="Assignment"
+		useGeneratedKeys="true" keyColumn="assignmentId">
+		insert into Assignment (course,
+		description, startDate, endDate, url, nth) values (#{courseCode},
+		#{description}, #{startDate}, #{endDate}, #{websiteUrl}, #{nth})
+	</insert>
+
+	<update id="updateAssignment" parameterType="Assignment">
+		update Assignment
+		set course=#{courseCode}, description=#{description},
+		startDate=#{startDate}, endDate=#{endDate}, url=#{websiteUrl},
+		nth=#{nth}
+	</update>
+
+	<delete id="removeAssignment" parameterType="Assignment">
+		delete from
+		Assignment where assignmentId=#{assignmentId}
+	</delete>
+
+	<select id="getAssignmentById" parameterType="int" resultType="Assignment">
+		select * from Assignment where assignmentId=#{assignmentId}
+	</select>
+
+	<select id="getAssignmentsByCourse" parameterType="java.lang.String"
+		resultType="Assignment">
+		select * from Assignment where course=#{courseCode}
+	</select>
+
+	<select id="getAssignmentsByDueDate" parameterType="java.util.Date"
+		resultType="Assignment">
+		select * from Assignment where endDate=#{endDate}
+	</select>
+
+	<select id="getAssignmentOfCourseByDueDate" resultType="Assignment">
+		select *
+		from Assignment where course=#{0} and endDate=#{1}
+	</select>
+
+	<select id="getNthAssignmentOfCourse" resultType="Assignment">
+		select * from
+		Assignment where course=#{0} and nth=#{1}
+	</select>
+</mapper>

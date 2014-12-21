@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.UserDAO">
+	<insert id="insertNewUser" parameterType="User"
+		useGeneratedKeys="true" keyColumn="userId">
+		insert into UserLogin (username,
+		password, createAt, lastLoginAt) values (#{username}, #{password},
+		#{createAt}, #{lastLoginAt})
+	</insert>
+
+	<update id="updateExistUser" parameterType="User">
+		update UserLogin set
+		username=#{username}, password=#{password}, lastLoginAt=#{lastLoginAt}
+		where userId=#{userId}
+	</update>
+
+	<delete id="removeUser" parameterType="User">
+		delete from UserLogin
+		where userId=#{userId}
+	</delete>
+
+	<delete id="removeAllUser">
+		delete from UserLogin
+	</delete>
+
+	<delete id="removeUserByName" parameterType="java.lang.String">
+		delete from
+		UserLogin where username=#{username};
+	</delete>
+
+	<select id="getAllUser" resultType="User">
+		select * from UserLogin
+	</select>
+
+	<select id="getUserById" parameterType="int" resultType="User">
+		select *
+		from UserLogin where userId={#userId}
+	</select>
+
+	<select id="getUserByName" parameterType="java.lang.String"
+		resultType="User">
+		select * from UserLogin where username=#{username}
+	</select>
+</mapper>
