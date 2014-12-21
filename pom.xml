@@ -5,9 +5,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <description>A project for integrating information of course, assignment deadline and examinations in UNSW</description>
 	<properties>
+		<mysql-jdbc.version>5.1.30</mysql-jdbc.version>
 		<spring.version>3.2.12.RELEASE</spring.version>
+		<mybatis.version>3.2.6</mybatis.version>
 		<mybatis-spring.version>1.2.2</mybatis-spring.version>
 		<jdk.version>1.7</jdk.version>
+		<dbcp.version>2.0.1</dbcp.version>
 	</properties>	
 	<dependencies>
 	    <dependency>
@@ -20,10 +23,37 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+        
         <dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>${mybatis-spring.version}</version>
+		</dependency>
+	  	<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>${dbcp.version}</version>	
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-jdbc.version}</version>
 		</dependency>
 	</dependencies>
 </project>

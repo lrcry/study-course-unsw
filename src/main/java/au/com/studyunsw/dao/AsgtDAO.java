@@ -31,6 +31,15 @@ public interface AsgtDAO {
 	List<Assignment> getAssignmentsByCourse(String courseCode);
 
 	/**
+	 * Get the assignments which have a specific census date<br/>
+	 * 
+	 * @param endDate
+	 *            census date
+	 * @return list of assignments
+	 */
+	List<Assignment> getAssignmentsByDueDate(Date endDate);
+
+	/**
 	 * Retrieve the assignments of a course which have a census date<br />
 	 * 
 	 * @param courseCode

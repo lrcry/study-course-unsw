@@ -1,9 +1,11 @@
-package au.com.studyunsw.cryption.utils;
+package au.com.studyunsw.cryption.utils.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import au.com.studyunsw.cryption.utils.InfoEncoder;
 
 public class TestInfoEncoder {
 	private static final String PWD = "8df92dfs92fjg9210gh";
