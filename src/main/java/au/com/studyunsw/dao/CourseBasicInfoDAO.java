@@ -6,69 +6,84 @@ import au.com.studyunsw.model.*;
 
 /**
  * DAO for CourseBasicInfo and coursebasicinfo table<br />
+ * 
  * @author range-ubuntu
- *
+ * 
  */
-public interface CourseBasicInfoDAO { 
+public interface CourseBasicInfoDAO {
 	/**
 	 * Retrieve all courses<br />
+	 * 
 	 * @return courses list
 	 */
 	List<CourseBasicInfo> getAllCourses();
-	
+
 	/**
 	 * Get the course by its course code<br />
-	 * @param courseCode course code
+	 * 
+	 * @param courseCode
+	 *            course code
 	 * @return course object
 	 */
 	CourseBasicInfo getCourseByCourseCode(String courseCode);
-	
+
 	/**
 	 * Retrieve all courses held by a faculty<br />
-	 * @param courseAuthority course authority
+	 * 
+	 * @param courseAuthority
+	 *            course authority
 	 * @return courses list
 	 */
 	List<CourseBasicInfo> getCoursesByAuthority(String courseAuthority);
-	
+
 	/**
 	 * Get the course by its name<br />
-	 * @param courseName course name
+	 * 
+	 * @param courseName
+	 *            course name
 	 * @return course object
 	 */
 	CourseBasicInfo getCourseByName(String courseName);
-	
+
 	/**
 	 * Retrieve all courses held in the semester<br />
-	 * @param semester semester
+	 * 
+	 * @param semester
+	 *            semester
 	 * @return courses list
 	 */
 	List<CourseBasicInfo> getSemesterCourses(int semester);
-	
+
 	/**
 	 * Get all courses held by a lecturer<br />
-	 * @param lecturerName lecturer's name
+	 * 
+	 * @param lecturerName
+	 *            lecturer's name
 	 * @return courses list
 	 */
 	List<CourseBasicInfo> getCoursesByLecturer(String lecturerName);
-	
+
 	/**
 	 * Create a new course<br />
-	 * @param course course object
-	 * @return if the course inserted successfully
+	 * 
+	 * @param course
+	 *            course object
 	 */
-	boolean insertNewCourse(CourseBasicInfo course);
-	
+	void insertNewCourse(CourseBasicInfo course);
+
 	/**
 	 * Update an existing course<br />
-	 * @param course course object
-	 * @return if the course updated successfully
+	 * 
+	 * @param course
+	 *            course object
 	 */
-	boolean updateCourse(CourseBasicInfo course);
-	
+	void updateCourse(CourseBasicInfo course);
+
 	/**
 	 * Remove a course<br />
-	 * @param course course object
-	 * @return if the course removed successfully
+	 * 
+	 * @param course
+	 *            course object
 	 */
-	boolean removeCourse(CourseBasicInfo course);
+	void removeCourse(CourseBasicInfo course);
 }

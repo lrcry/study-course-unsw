@@ -81,34 +81,30 @@ public interface TimeLineItemDAO {
 	 * 
 	 * @param item
 	 *            item object
-	 * @return if the insertion is successful
 	 */
-	boolean insertItem(TimeLineItem item);
+	void insertItem(TimeLineItem item);
 
 	/**
 	 * Update an existing time line item<br />
 	 * 
 	 * @param item
 	 *            item object
-	 * @return if the update is successful
 	 */
-	boolean udpateItem(TimeLineItem item);
+	void udpateItem(TimeLineItem item);
 
 	/**
 	 * Remove an item<br />
 	 * 
 	 * @param item
 	 *            item object
-	 * @return if the remove is successful
 	 */
-	boolean removeItem(TimeLineItem item);
+	void removeItem(TimeLineItem item);
 
 	/**
 	 * Remove all items in a time line<br/>
 	 * 
 	 * @param timeLineId
 	 *            time line ID
-	 * @return if the remove is successful
 	 */
-	boolean removeItemInTimeLine(long timeLineId);
+	void removeItemInTimeLine(long timeLineId);
 }

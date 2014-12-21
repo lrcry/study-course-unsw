@@ -6,8 +6,9 @@ import au.com.studyunsw.model.Exam;
 
 /**
  * DAO for Exam and exam table<br />
+ * 
  * @author range-ubuntu
- *
+ * 
  */
 public interface ExamDAO {
 	/**
@@ -60,26 +61,22 @@ public interface ExamDAO {
 	 * 
 	 * @param exam
 	 *            exam object
-	 * @return if the insertion is successful
 	 */
-	boolean insertNewExam(Exam exam);
+	void insertNewExam(Exam exam);
 
 	/**
 	 * Update an existing exam<br />
 	 * 
 	 * @param exam
 	 *            exam object
-	 * @return if the update is successful
 	 */
-	boolean updateExam(Exam exam);
+	void updateExam(Exam exam);
 
 	/**
 	 * Remove an exam<br />
 	 * 
 	 * @param exam
 	 *            exam object
-	 * @return if the removing is successful (I know all of you hope it
-	 *         successful...)
 	 */
-	boolean removeExam(Exam exam);
+	void removeExam(Exam exam);
 }

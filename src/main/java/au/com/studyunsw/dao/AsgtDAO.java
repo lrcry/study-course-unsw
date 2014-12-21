@@ -58,25 +58,22 @@ public interface AsgtDAO {
 	 * 
 	 * @param asgt
 	 *            assignment object
-	 * @return if the insertion is successful
 	 */
-	boolean insertNewAssignment(Assignment asgt);
+	void insertNewAssignment(Assignment asgt);
 
 	/**
 	 * Update an existing assignment<br />
 	 * 
 	 * @param asgt
 	 *            assignment object
-	 * @return if the update is successful
 	 */
-	boolean updateAssignment(Assignment asgt);
+	void updateAssignment(Assignment asgt);
 
 	/**
 	 * Remove an assignment<br />
 	 * 
 	 * @param asgt
 	 *            assignment object
-	 * @return if the remove is successful
 	 */
-	boolean removeAssignment(Assignment asgt);
+	void removeAssignment(Assignment asgt);
 }

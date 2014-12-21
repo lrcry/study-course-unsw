@@ -72,7 +72,7 @@ public interface TimeLineService {
 	 * 
 	 * @param timeLine
 	 *            time line object
-	 * @return if successfully modified
+	 * @return operation status code
 	 */
 	int modifyTimeLine(DueDateLineOnTime timeLine);
 
@@ -81,17 +81,19 @@ public interface TimeLineService {
 	 * 
 	 * @param timeLine
 	 *            time line object
-	 * @return if successfully removed
+	 * @return operation status code
 	 */
 	int removeTimeLine(DueDateLineOnTime timeLine);
 
 	/**
 	 * Automatically add system items for a user<br/>
-	 * @param timeLine time line object
+	 * 
+	 * @param timeLine
+	 *            time line object
 	 * @return operation status code
 	 */
 	int addSystemItemToTimeLine(DueDateLineOnTime timeLine);
-	
+
 	/**
 	 * User add an item to time line<br/>
 	 * 
@@ -104,7 +106,18 @@ public interface TimeLineService {
 	int addItemToTimeLine(DueDateLineOnTime timeLine, UserItem item);
 
 	/**
-	 * Update an item of some time line<br/>
+	 * Update a system-generated item of a time line<br/>
+	 * 
+	 * @param timeLine
+	 *            time line object
+	 * @param item
+	 *            item object
+	 * @return operation status code
+	 */
+	int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+
+	/**
+	 * Update a user-created item of some time line<br/>
 	 * 
 	 * @param timeLine
 	 *            time line object
@@ -121,8 +134,8 @@ public interface TimeLineService {
 	 *            time line object
 	 * @param item
 	 *            item object
-	 * @return if successfully removed
+	 * @return operation status code
 	 */
-	boolean removeItemFromTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+	int removeItemFromTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
 
 }

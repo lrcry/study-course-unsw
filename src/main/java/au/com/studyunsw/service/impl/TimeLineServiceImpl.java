@@ -13,7 +13,6 @@ import au.com.studyunsw.dao.AsgtItemDAO;
 import au.com.studyunsw.dao.ExamItemDAO;
 import au.com.studyunsw.dao.TimeLineDAO;
 import au.com.studyunsw.dao.TimeLineItemDAO;
-import au.com.studyunsw.deprecated.UserItemDAO_D;
 import au.com.studyunsw.model.DueDateLineOnTime;
 import au.com.studyunsw.model.comparator.TimeLineComparator;
 import au.com.studyunsw.model.comparator.TimeLineItemComparator;
@@ -138,10 +137,8 @@ public class TimeLineServiceImpl implements TimeLineService {
 		timeLine.setCreateAt(new Date());
 
 		try {
-			boolean isCreated = lineDao.insertNewLine(timeLine);
-			if (!isCreated) {
-				return OprStatus.DAO_EXCEPTION;
-			}
+			lineDao.insertNewLine(timeLine);
+
 		} catch (Exception e) {
 			// this false indicates server DAO exception
 			e.printStackTrace();
@@ -171,10 +168,8 @@ public class TimeLineServiceImpl implements TimeLineService {
 		timeLine.setCreateAt(new Date());
 
 		try {
-			boolean isUpdated = lineDao.updateLine(timeLine);
-			if (!isUpdated) {
-				return OprStatus.DAO_EXCEPTION;
-			}
+			lineDao.updateLine(timeLine);
+
 		} catch (Exception e) {
 			// this false indicates server DAO exception
 			e.printStackTrace();
@@ -198,11 +193,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 		// remove all the items of the time line
 		try {
-			boolean isItemsRemoved = itemDao.removeItemInTimeLine(timeLine
-					.getTimeLineId());
-			if (!isItemsRemoved) {
-				return OprStatus.DAO_EXCEPTION;
-			}
+			itemDao.removeItemInTimeLine(timeLine.getTimeLineId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return OprStatus.DAO_EXCEPTION;
@@ -210,10 +201,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 		// remove the time line itself
 		try {
-			boolean isRemoved = lineDao.removeLine(timeLine);
-			if (!isRemoved) {
-				return OprStatus.DAO_EXCEPTION;
-			}
+			lineDao.removeLine(timeLine);
 		} catch (Exception e) {
 			// this false indicates server DAO exception
 			e.printStackTrace();
@@ -225,7 +213,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 	@Override
 	public int addSystemItemToTimeLine(DueDateLineOnTime timeLine) {
-		// TODO Auto-generated method stub
+
 		return OprStatus.SUCCESS;
 	}
 
@@ -239,13 +227,20 @@ public class TimeLineServiceImpl implements TimeLineService {
 	public int updateItemOfTimeLine(DueDateLineOnTime timeLine,
 			TimeLineItem item) {
 		// TODO Auto-generated method stub
-		return 0;
+		return OprStatus.SUCCESS;
 	}
 
 	@Override
-	public boolean removeItemFromTimeLine(DueDateLineOnTime timeLine,
+	public int removeItemFromTimeLine(DueDateLineOnTime timeLine,
 			TimeLineItem item) {
 		// TODO Auto-generated method stub
-		return false;
+		return OprStatus.SUCCESS;
+	}
+
+	@Override
+	public int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine,
+			TimeLineItem item) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

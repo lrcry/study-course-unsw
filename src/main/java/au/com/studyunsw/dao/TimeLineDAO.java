@@ -52,25 +52,22 @@ public interface TimeLineDAO {
 	 * 
 	 * @param line
 	 *            time line object
-	 * @return if the insertion is successful
 	 */
-	boolean insertNewLine(DueDateLineOnTime line);
+	void insertNewLine(DueDateLineOnTime line);
 
 	/**
 	 * Update an existing time line record<br />
 	 * 
 	 * @param line
 	 *            time line object
-	 * @return if the update is successful
 	 */
-	boolean updateLine(DueDateLineOnTime line);
+	void updateLine(DueDateLineOnTime line);
 
 	/**
 	 * Remove a time line record<br />
 	 * 
 	 * @param line
 	 *            time line object
-	 * @return if the remove is successful
 	 */
-	boolean removeLine(DueDateLineOnTime line);
+	void removeLine(DueDateLineOnTime line);
 }
