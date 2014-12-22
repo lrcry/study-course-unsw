@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.TimeLineDAO">
+	<insert id="insertNewLine" parameterType="TimeLine">
+		insert into TimeLine
+		(timeLineName, userId, createAt) values (#{timeLineName}, #{userId},
+		date(now()))
+	</insert>
+
+	<update id="updateLine" parameterType="TimeLine">
+		update TimeLine
+		set
+		timeLineName=#{timeLineName}, userId=#{userId}, createAt=date(now())
+		where timeLineId=#{timeLineId}
+	</update>
+
+	<delete id="removeLine" parameterType="TimeLine">
+		delete from TimeLine
+		where
+		timeLineId=#{timeLineId}
+	</delete>
+
+	<select id="getAllDueDateLine" resultType="TimeLine">
+		select * from TimeLine
+	</select>
+
+	<select id="getLineById" parameterType="int" resultType="TimeLine">
+		select *
+		from TimeLine where timeLineId=#{timeLineId}
+	</select>
+
+	<select id="getLineByUser" parameterType="int" resultType="TimeLine">
+		select * from TimeLine where userId=#{userId}
+	</select>
+	
+	<select id="getLineByUserAndName" resultType="TimeLine">
+		select * from TimeLine where userId=#{userId} and timeLineName=#{lineName}
+	</select>
+</mapper>

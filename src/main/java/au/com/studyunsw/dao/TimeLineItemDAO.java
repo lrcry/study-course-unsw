@@ -59,24 +59,6 @@ public interface TimeLineItemDAO {
 	List<TimeLineItem> getItemsInTimeLineAfterDate(long timeLineId, Date day);
 
 	/**
-	 * Get all assignments in a time line record<br />
-	 * 
-	 * @param timeLineId
-	 *            time line ID
-	 * @return item list
-	 */
-	List<TimeLineItem> getAssignmentsInTimeLine(long timeLineId);
-
-	/**
-	 * Get all exams in a time line record<br />
-	 * 
-	 * @param timeLineId
-	 *            time line ID
-	 * @return item list
-	 */
-	List<TimeLineItem> getExamsInTimeLine(long timeLineId);
-
-	/**
 	 * Insert a new time line item<br />
 	 * 
 	 * @param item
@@ -90,7 +72,7 @@ public interface TimeLineItemDAO {
 	 * @param item
 	 *            item object
 	 */
-	void udpateItem(TimeLineItem item);
+	void updateItem(TimeLineItem item);
 
 	/**
 	 * Remove an item<br />

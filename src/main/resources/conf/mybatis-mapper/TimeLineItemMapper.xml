@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.TimeLineItemDAO">
+	<insert id="insertItem" parameterType="UserItem">
+		insert into UserItem
+		(timeLine, description, createAt, dueDate) values (#{timeLineId},
+		#{description}, date(now), #{dueDate})
+	</insert>
+
+	<update id="updateItem" parameterType="UserItem">
+		update UserItem
+		set
+		timeLine=#{timeLineId}, description=#{description}, date(now),
+		dueDate=#{dueDate} where itemId=#{itemId}
+	</update>
+
+	<delete id="removeItem" parameterType="UserItem">
+		delete from UserItem where
+		itemId=#{itemId}
+	</delete>
+
+	<delete id="removeItemInTimeLine" parameterType="int">
+		delete from
+		UserItem where timeLine=#{timeLineId}
+	</delete>
+
+	<select id="getAllItems" resultType="UserItem">
+		select * from UserItem
+	</select>
+
+	<select id="getItemById" parameterType="int" resultType="UserItem">
+		select *
+		from UserItem where itemId=#{itemId}
+	</select>
+
+	<select id="getItemsInTimeLine" parameterType="int" resultType="UserItem">
+		select * from UserItem where timeLine=#{timeLineId}
+	</select>
+
+	<select id="getItemsInTimeLineBeforeDate" resultType="UserItem">
+		select *
+		from UserItem where timeLine=#{0} and dueDate&lt;=#{1}
+	</select>
+
+	<select id="getItemsInTimeLineAfterDate" resultType="UserItem">
+		select * from UserItem where timeLine=#{0} and
+		dueDate&gt;#{1}
+	</select>
+</mapper>

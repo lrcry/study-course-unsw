@@ -12,4 +12,6 @@ public interface ExamItemDAO extends TimeLineItemDAO {
 	void insertExamItem(ExamItem item);
 
 	void updateExamItem(ExamItem item);
+	
+	void removeExamItem(ExamItem item);
 }

@@ -2,3 +2,48 @@
 <!DOCTYPE mapper  
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.AsgtItemDAO">
+	<insert id="insertAsgtItem" parameterType="AsgtItem">
+		insert into AsgtItem
+		(timeLine, description, course, assignment, createAt, dueDate) values
+		(#{timeLineId}, #{description}, #{courseCode}, #{asgtId}, date(now()),
+		#{dueDate})
+	</insert>
+
+	<update id="updateAsgtItem" parameterType="AsgtItem">
+		update AsgtItem set
+		timeLine=#{timeLine}, description=#{description}, #{courseCode},
+		#{asgtId}, date(now()), dueDate={#dueDate}
+		where itemId=#{itemId}
+	</update>
+
+	<delete id="removeAsgtItem" parameterType="AsgtItem">
+		delete from AsgtItem
+		where itemId=#{itemId}
+	</delete>
+
+	<select id="getAllItems" resultType="AsgtItem">
+		select * from AsgtItem
+	</select>
+
+	<select id="getItemById" parameterType="int" resultType="AsgtItem">
+		select *
+		from AsgtItem where itemId=#{itemId}
+	</select>
+
+	<select id="getItemsInTimeLine" parameterType="int" resultType="AsgtItem">
+		select * from AsgtItem where timeLine=#{timeLineId}
+	</select>
+
+	<select id="getItemsInTimeLineBeforeDate" resultType="AsgtItem">
+		select *
+		from AsgtItem where timeLine=#{0} and dueDate&lt;=#{1}
+	</select>
+
+	<select id="getItemsInTimeLineAfterDate" resultType="AsgtItem">
+		select *
+		from AsgtItem where timeLine=#{0} and
+		dueDate&gt;#{1}
+	</select>
+</mapper>

@@ -5,16 +5,18 @@ import java.util.Date;
 /**
  * Model of due date time line information<br/>
  * Stored in the table TimeLine<br/>
+ * 
  * @author range-ubuntu
- *
+ * 
  */
 public class DueDateLineOnTime {
 	private long timeLineId; // time line ID
-	
+
 	private String timeLineName; // name given by the user (if saved to server)
-	
-	private long userId; // ID of user who owns the time line (if saved to server)
-	
+
+	private long userId; // ID of user who owns the time line (if saved to
+							// server)
+
 	private Date createAt; // create time of the timeline (if saved to server)
 
 	public long getTimeLineId() {

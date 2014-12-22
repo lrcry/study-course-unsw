@@ -12,4 +12,6 @@ public interface AsgtItemDAO extends TimeLineItemDAO {
 	void insertAsgtItem(AsgtItem item);
 
 	void updateAsgtItem(AsgtItem item);
+	
+	void removeAsgtItem(AsgtItem item);
 }

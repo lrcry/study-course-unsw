@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="au.com.studyunsw.dao.ExamItemDAO">
+	<insert id="insertExamItem" parameterType="ExamItem">
+		insert into ExamItem
+		(timeLine, description, course, exam, createAt, dueDate) values
+		(#{timeLineId}, #{description}, #{courseCode}, #{examId}, date(now()),
+		#{dueDate})
+	</insert>
+
+	<update id="updateExamItem" parameterType="ExamItem">
+		update ExamItem set
+		timeLine=#{timeLine}, description=#{description}, #{courseCode},
+		#{examId}, date(now()), dueDate={#dueDate}
+		where itemId=#{itemId}
+	</update>
+
+	<delete id="removeExamItem" parameterType="ExamItem">
+		delete from ExamItem
+		where itemId=#{itemId}
+	</delete>
+
+	<select id="getAllItems" resultType="ExamItem">
+		select * from ExamItem
+	</select>
+
+	<select id="getItemById" parameterType="int" resultType="ExamItem">
+		select *
+		from ExamItem where itemId=#{itemId}
+	</select>
+
+	<select id="getItemsInTimeLine" parameterType="int" resultType="ExamItem">
+		select * from ExamItem where timeLine=#{timeLineId}
+	</select>
+
+	<select id="getItemsInTimeLineBeforeDate" resultType="ExamItem">
+		select *
+		from ExamItem where timeLine=#{0} and dueDate&lt;=#{1}
+	</select>
+
+	<select id="getItemsInTimeLineAfterDate" resultType="ExamItem">
+		select * from ExamItem where timeLine=#{0} and
+		dueDate&gt;#{1}
+	</select>
+</mapper>
