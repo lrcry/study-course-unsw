@@ -18,6 +18,8 @@
 		teachingPeriod=#{teachingPeriod},
 		lecturerName=#{lecturerName},
 		description=#{description}, createAt=#{createAt}
+		where
+		courseCode=#{courseCode}
 	</update>
 
 	<delete id="removeCourse" parameterType="Course">
@@ -49,8 +51,9 @@
 	<select id="getSemesterCourses" parameterType="int" resultType="Course">
 		select * from Course where semester=#{semester}
 	</select>
-	
-	<select id="getCoursesByLecturer" parameterType="java.lang.String" resultType="Course">
+
+	<select id="getCoursesByLecturer" parameterType="java.lang.String"
+		resultType="Course">
 		select * from Course where lecturerName=#{lecturerName}
 	</select>
 </mapper>

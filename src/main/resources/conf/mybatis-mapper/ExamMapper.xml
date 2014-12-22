@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.ExamDAO">
+	<insert id="insertNewExam" parameterType="Exam">
+		insert into Exam
+		(course, materials,
+		startDate, examLocation, examType) values
+		(#{courseCode},
+		#{materials}, #{startDate}, #{examLocation},
+		#{examType});
+	</insert>
+
+	<update id="updateExam" parameterType="Exam">
+		update Exam
+		set
+		course=#{courseCode}, materials=#{materials}, startDate=#{startDate},
+		examLocation=#{examLocation}, examType=#{examType}
+		where examId=#{examId}
+	</update>
+
+	<delete id="removeExam" parameterType="Exam">
+		delete from Exam where
+		examId=#{examId}
+	</delete>
+
+	<select id="getAllExams" resultType="Exam">
+		select * from Exam
+	</select>
+
+	<select id="getExamById" parameterType="int" resultType="Exam">
+		select *
+		from Exam where examId=#{examId}
+	</select>
+
+	<select id="getExamsByCourse" parameterType="java.lang.String"
+		resultType="Exam">
+		select * from Exam where course=#{courseCode}
+	</select>
+
+	<select id="getTypeOfExamByCourse" resultType="Exam">
+		select * from Exam
+		where course=#{0} and examType=#{1}
+	</select>
+
+	<select id="getExamsByLocation" parameterType="java.lang.String"
+		resultType="Exam">
+		select * from Exam where examLocation=#{examLocation}
+	</select>
+</mapper>

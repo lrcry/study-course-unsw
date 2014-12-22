@@ -19,7 +19,7 @@ public interface UserCourseDAO {
 
 	void addUserCourse(UserCourse userCourse);
 
-	void updateUserCourse(UserCourse userCourse);
+//	void updateUserCourse(UserCourse userCourse);
 
 	void removeUserCourse(UserCourse userCourse);
 }

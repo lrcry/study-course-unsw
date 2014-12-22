@@ -25,7 +25,7 @@ public interface ExamDAO {
 	 *            exam ID
 	 * @return exam object
 	 */
-	Exam getExamId(long examId);
+	Exam getExamById(long examId);
 
 	/**
 	 * Retrieve exams by a course<br />
@@ -34,7 +34,7 @@ public interface ExamDAO {
 	 *            course code
 	 * @return exam list
 	 */
-	List<Exam> getExamByCourse(String courseCode);
+	List<Exam> getExamsByCourse(String courseCode);
 
 	/**
 	 * Get some type of exams of a course<br />

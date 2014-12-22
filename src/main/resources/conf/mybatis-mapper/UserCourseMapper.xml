@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="au.com.studyunsw.dao.UserCourseDAO">
+	<insert id="addUserCourse" parameterType="UserCourse">
+		insert into UserCourse
+		values (#{userId}, #{courseCode})
+	</insert>
+
+	<delete id="removeUserCourse" parameterType="UserCourse">
+		delete from
+		UserCourse where user=#{userId} and course=#{courseCode}
+	</delete>
+
+	<select id="getAllUserCourse" resultType="UserCourse">
+		select * from
+		UserCourse
+	</select>
+
+	<select id="getCoursesSelectedByUser" resultType="UserCourse">
+		select * from
+		UserCourse where user=#{userId}
+	</select>
+
+	<select id="getUsersInvolvedInCourse" resultType="UserCourse">
+		select * from UserCourse where course=#{courseCode}
+	</select>
+</mapper>

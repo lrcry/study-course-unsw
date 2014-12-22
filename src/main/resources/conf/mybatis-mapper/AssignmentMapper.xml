@@ -16,6 +16,7 @@
 		set course=#{courseCode}, description=#{description},
 		startDate=#{startDate}, endDate=#{endDate}, url=#{websiteUrl},
 		nth=#{nth}
+		where assignmentId=#{assignmentId}
 	</update>
 
 	<delete id="removeAssignment" parameterType="Assignment">
