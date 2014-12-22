@@ -102,3 +102,5 @@ create table UserCourse (
 	course char(8) not null references Course(courseCode),
 	primary key (user, course)
 ) default charset=utf8;
+
+/* Indexes */

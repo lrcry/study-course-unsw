@@ -21,7 +21,12 @@ public class OprStatus {
 	public static final int COURSE_WITHOUT_ASGT_EXAM = 802;
 	public static final int NO_SUCH_ASGT = 803;
 	public static final int NO_SUCH_EXAM = 804;
+	public static final int NO_ARRANGEMENT_IN_ALL_COURSES_AND_EXAMS = 805;
+	public static final int NO_DUEDATE_IN_ITEM = 810;
 	
-	/* Codes start with 7 indicates user login problem. */
+	/* Codes start with 7 indicates user problem. */
 	public static final int USER_NOT_LOGIN_YET = 700;
+	public static final int USERNAME_NOT_EXIST = 701;
+	public static final int USER_PASSWORD_INCORRECT = 702;
+	public static final int USER_NO_COURSE_SELECTED = 703;
 }

@@ -9,13 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.com.studyunsw.commons.OprStatus;
+import au.com.studyunsw.dao.AsgtDAO;
 import au.com.studyunsw.dao.AsgtItemDAO;
+import au.com.studyunsw.dao.ExamDAO;
 import au.com.studyunsw.dao.ExamItemDAO;
 import au.com.studyunsw.dao.TimeLineDAO;
 import au.com.studyunsw.dao.TimeLineItemDAO;
+import au.com.studyunsw.dao.UserCourseDAO;
+import au.com.studyunsw.model.Assignment;
 import au.com.studyunsw.model.DueDateLineOnTime;
+import au.com.studyunsw.model.Exam;
+import au.com.studyunsw.model.UserCourse;
 import au.com.studyunsw.model.comparator.TimeLineComparator;
 import au.com.studyunsw.model.comparator.TimeLineItemComparator;
+import au.com.studyunsw.model.timelineitem.AsgtItem;
+import au.com.studyunsw.model.timelineitem.ExamItem;
 import au.com.studyunsw.model.timelineitem.TimeLineItem;
 import au.com.studyunsw.model.timelineitem.UserItem;
 import au.com.studyunsw.service.TimeLineService;
@@ -27,6 +35,9 @@ public class TimeLineServiceImpl implements TimeLineService {
 	private TimeLineItemDAO itemDao;
 	private AsgtItemDAO asgtDao;
 	private ExamItemDAO examDao;
+	private AsgtDAO aDao;
+	private ExamDAO eDao;
+	private UserCourseDAO userCourseDao;
 
 	@Override
 	public List<DueDateLineOnTime> getAllTimeLine() {
@@ -213,34 +224,168 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 	@Override
 	public int addSystemItemToTimeLine(DueDateLineOnTime timeLine) {
+		List<TimeLineItem> systemItem = new ArrayList<>();
+		long timeLineId = timeLine.getTimeLineId();
+
+		try {
+			List<AsgtItem> asgtItems = new ArrayList<>();
+			List<ExamItem> examItems = new ArrayList<>();
+
+			// clear before add or update
+			systemItem = asgtDao.getItemsInTimeLine(timeLineId);
+			if (systemItem != null && systemItem.size() > 0) {
+				asgtDao.removeItemInTimeLine(timeLineId);
+			}
+
+			systemItem = examDao.getItemsInTimeLine(timeLineId);
+			if (systemItem != null && systemItem.size() > 0) {
+				examDao.removeItemInTimeLine(timeLineId);
+			}
+
+			// get user selected course
+			long userId = timeLine.getUserId();
+			if (userId == 0) {
+				return OprStatus.USER_NOT_LOGIN_YET;
+			}
+
+			List<UserCourse> userCourses = userCourseDao
+					.getCoursesSelectedByUser(userId);
+			if (userCourses == null || userCourses.size() == 0) {
+				return OprStatus.USER_NO_COURSE_SELECTED;
+			}
+
+			// get information of assignments and exams
+			// TODO performance problem needs to be solved here
+			for (UserCourse uCourse : userCourses) {
+				String courseCode = uCourse.getCourseCode();
+				List<Assignment> asgts = aDao
+						.getAssignmentsByCourse(courseCode);
+				List<Exam> exams = eDao.getExamsByCourse(courseCode);
+
+				if (asgts != null && asgts.size() > 0) {
+					for (Assignment asgt : asgts) {
+
+						AsgtItem asgtItem = new AsgtItem();
+						asgtItem.setCourseCode(courseCode);
+						asgtItem.setAsgtId(asgt.getAssignmentId());
+						asgtItem.setTimeLineId(timeLineId);
+						asgtItem.setDueDate(asgt.getEndDate());
+
+						// build the item description
+						StringBuilder asgtItemDescriptionBuilder = new StringBuilder(
+								courseCode);
+						asgtItemDescriptionBuilder.append(" assignment ");
+						asgtItemDescriptionBuilder.append(asgt.getNth());
+						asgtItem.setDescription(asgtItemDescriptionBuilder
+								.toString());
+						asgtItems.add(asgtItem);
+					}
+				}
+
+				if (exams != null && exams.size() > 0) {
+					for (Exam exam : exams) {
+						ExamItem examItem = new ExamItem();
+						examItem.setCourseCode(courseCode);
+						examItem.setExamId(exam.getExamId());
+						examItem.setTimeLineId(timeLineId);
+						examItem.setDueDate(exam.getStartDate());
+
+						StringBuilder examItemDescriptionBuilder = new StringBuilder(
+								courseCode);
+						examItemDescriptionBuilder.append(" ");
+						int examType = exam.getExamType();
+						switch (examType) {
+						case 1:
+							examItemDescriptionBuilder.append("mid-term exam");
+							break;
+						case 2:
+							examItemDescriptionBuilder.append("final exam");
+							break;
+						case 3:
+							examItemDescriptionBuilder.append("exemption exam");
+							break;
+						default:
+							break;
+						}
+						examItem.setDescription(examItemDescriptionBuilder
+								.toString());
+						examItems.add(examItem);
+					}
+				}
+			}
+			
+			// if no arrangement yet in all the courses
+			if (asgtItems.size() == 0 && examItems.size() == 0) { 
+				return OprStatus.NO_ARRANGEMENT_IN_ALL_COURSES_AND_EXAMS;
+			}
+			
+			asgtDao.insertAsgtItemBatch(asgtItems);
+			examDao.insertExamItemBatch(examItems);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
 
 		return OprStatus.SUCCESS;
 	}
 
 	@Override
 	public int addItemToTimeLine(DueDateLineOnTime timeLine, UserItem item) {
-		// TODO Auto-generated method stub
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+		
+		if (item.getDueDate() == null) {
+			return OprStatus.NO_DUEDATE_IN_ITEM;
+		}
+		
+		long timeLineId = timeLine.getTimeLineId();
+		item.setTimeLineId(timeLineId);
+		
+		try {
+			itemDao.insertItem(item);
+			lineDao.updateLine(timeLine);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+		
 		return OprStatus.SUCCESS;
 	}
 
 	@Override
 	public int updateItemOfTimeLine(DueDateLineOnTime timeLine,
 			TimeLineItem item) {
-		// TODO Auto-generated method stub
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+		
+		try {
+			itemDao.updateItem(item);
+			lineDao.updateLine(timeLine);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+		
 		return OprStatus.SUCCESS;
 	}
 
 	@Override
 	public int removeItemFromTimeLine(DueDateLineOnTime timeLine,
 			TimeLineItem item) {
-		// TODO Auto-generated method stub
+		if (timeLine.getUserId() == 0) {
+			return OprStatus.USER_NOT_LOGIN_YET;
+		}
+		
+		try {
+			itemDao.removeItem(item);
+			lineDao.updateLine(timeLine);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return OprStatus.DAO_EXCEPTION;
+		}
+		
 		return OprStatus.SUCCESS;
-	}
-
-	@Override
-	public int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine,
-			TimeLineItem item) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

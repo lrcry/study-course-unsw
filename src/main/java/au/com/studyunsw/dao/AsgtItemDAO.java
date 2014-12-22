@@ -1,5 +1,7 @@
 package au.com.studyunsw.dao;
 
+import java.util.*;
+
 import au.com.studyunsw.model.timelineitem.AsgtItem;
 
 /**
@@ -14,4 +16,6 @@ public interface AsgtItemDAO extends TimeLineItemDAO {
 	void updateAsgtItem(AsgtItem item);
 	
 	void removeAsgtItem(AsgtItem item);
+	
+	void insertAsgtItemBatch(List<AsgtItem> items);
 }

@@ -86,7 +86,7 @@ public interface TimeLineService {
 	int removeTimeLine(DueDateLineOnTime timeLine);
 
 	/**
-	 * Automatically add system items for a user<br/>
+	 * Automatically add or update system items for a user<br/>
 	 * 
 	 * @param timeLine
 	 *            time line object
@@ -114,7 +114,7 @@ public interface TimeLineService {
 	 *            item object
 	 * @return operation status code
 	 */
-	int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+//	int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
 
 	/**
 	 * Update a user-created item of some time line<br/>

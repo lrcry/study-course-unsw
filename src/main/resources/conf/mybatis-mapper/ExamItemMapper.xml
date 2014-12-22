@@ -4,6 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="au.com.studyunsw.dao.ExamItemDAO">
+	<!-- Insert batch -->
+	<insert id="insertExamItemBatch" useGeneratedKeys="true"
+		keyColumn="itemId">
+		insert into ExamItem (timeLine, description, course, exam,
+		createAt, dueDate) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.timeLineId}, #{item.description},
+			#{item.courseCode}, #{item.examId}, date(now()),
+			#{item.dueDate})
+		</foreach>
+	</insert>
+	
 	<insert id="insertExamItem" parameterType="ExamItem">
 		insert into ExamItem
 		(timeLine, description, course, exam, createAt, dueDate) values

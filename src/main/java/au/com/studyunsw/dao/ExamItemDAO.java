@@ -1,5 +1,7 @@
 package au.com.studyunsw.dao;
 
+import java.util.List;
+
 import au.com.studyunsw.model.timelineitem.ExamItem;
 
 /**
@@ -14,4 +16,6 @@ public interface ExamItemDAO extends TimeLineItemDAO {
 	void updateExamItem(ExamItem item);
 	
 	void removeExamItem(ExamItem item);
+	
+	void insertExamItemBatch(List<ExamItem> items);
 }

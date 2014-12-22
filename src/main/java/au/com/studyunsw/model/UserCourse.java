@@ -8,7 +8,7 @@ package au.com.studyunsw.model;
 public class UserCourse {
 	private long userId;
 	
-	private long courseCode;
+	private String courseCode;
 
 	public long getUserId() {
 		return userId;
@@ -18,11 +18,11 @@ public class UserCourse {
 		this.userId = userId;
 	}
 
-	public long getCourseCode() {
+	public String getCourseCode() {
 		return courseCode;
 	}
 
-	public void setCourseCode(long courseCode) {
+	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
 	}
 }
