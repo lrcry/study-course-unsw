@@ -116,3 +116,8 @@ create table UserCourse (
 ) default charset=utf8;
 
 /* Indexes */
+create index idx_asgt_item_duedate on AsgtItem(dueDate);
+create index idx_asgt_enddate on Assignment(endDate);
+create index idx_exam_startdate on Exam(startDate);
+create index idx_exam_item_duedate on ExamItem(dueDate);
+create index idx_user_item_duedate on UserItem(dueDate);

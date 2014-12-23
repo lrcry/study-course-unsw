@@ -1,4 +1,4 @@
-package au.com.studyunsw.dao.test;
+package au.com.studyunsw.service.test;
 
 import static org.junit.Assert.*;
 
