@@ -36,11 +36,11 @@ public class Exam {
 		this.examId = examId;
 	}
 
-	public String getCourseCode() {
+	public String getCourse() {
 		return courseCode;
 	}
 
-	public void setCourseCode(String courseCode) {
+	public void setCourse(String courseCode) {
 		this.courseCode = courseCode;
 	}
 

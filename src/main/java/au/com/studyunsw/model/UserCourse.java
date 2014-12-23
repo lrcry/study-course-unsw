@@ -10,19 +10,19 @@ public class UserCourse {
 	
 	private String courseCode;
 
-	public long getUserId() {
+	public long getUser() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUser(long userId) {
 		this.userId = userId;
 	}
 
-	public String getCourseCode() {
+	public String getCourse() {
 		return courseCode;
 	}
 
-	public void setCourseCode(String courseCode) {
+	public void setCourse(String courseCode) {
 		this.courseCode = courseCode;
 	}
 }

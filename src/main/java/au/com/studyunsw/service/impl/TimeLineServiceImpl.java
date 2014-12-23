@@ -32,35 +32,45 @@ import au.com.studyunsw.service.TimeLineService;
 public class TimeLineServiceImpl implements TimeLineService {
 	@Autowired
 	private TimeLineDAO lineDao;
+	
+	@Autowired
 	private TimeLineItemDAO itemDao;
+	
+	@Autowired
 	private AsgtItemDAO asgtDao;
+	
+	@Autowired
 	private ExamItemDAO examDao;
+	
+	@Autowired
 	private AsgtDAO aDao;
+	
+	@Autowired
 	private ExamDAO eDao;
+	
+	@Autowired
 	private UserCourseDAO userCourseDao;
 
 	@Override
 	public List<DueDateLineOnTime> getAllTimeLine() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<DueDateLineOnTime> lines = lineDao.getAllDueDateLine();
+			return lines;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public DueDateLineOnTime getTimeLineById(long timeLineId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<TimeLineItem> getAllItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TimeLineItem getItemById(long itemId) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			DueDateLineOnTime line = lineDao.getLineById(timeLineId);
+			return line;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -250,6 +260,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 			List<UserCourse> userCourses = userCourseDao
 					.getCoursesSelectedByUser(userId);
+			
 			if (userCourses == null || userCourses.size() == 0) {
 				return OprStatus.USER_NO_COURSE_SELECTED;
 			}
@@ -257,7 +268,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 			// get information of assignments and exams
 			// TODO performance problem needs to be solved here
 			for (UserCourse uCourse : userCourses) {
-				String courseCode = uCourse.getCourseCode();
+				String courseCode = uCourse.getCourse();
 				List<Assignment> asgts = aDao
 						.getAssignmentsByCourse(courseCode);
 				List<Exam> exams = eDao.getExamsByCourse(courseCode);
@@ -266,9 +277,9 @@ public class TimeLineServiceImpl implements TimeLineService {
 					for (Assignment asgt : asgts) {
 
 						AsgtItem asgtItem = new AsgtItem();
-						asgtItem.setCourseCode(courseCode);
-						asgtItem.setAsgtId(asgt.getAssignmentId());
-						asgtItem.setTimeLineId(timeLineId);
+						asgtItem.setCourse(courseCode);
+						asgtItem.setAssignment(asgt.getAssignmentId());
+						asgtItem.setTimeLine(timeLineId);
 						asgtItem.setDueDate(asgt.getEndDate());
 
 						// build the item description
@@ -285,9 +296,9 @@ public class TimeLineServiceImpl implements TimeLineService {
 				if (exams != null && exams.size() > 0) {
 					for (Exam exam : exams) {
 						ExamItem examItem = new ExamItem();
-						examItem.setCourseCode(courseCode);
-						examItem.setExamId(exam.getExamId());
-						examItem.setTimeLineId(timeLineId);
+						examItem.setCourse(courseCode);
+						examItem.setExam(exam.getExamId());
+						examItem.setTimeLine(timeLineId);
 						examItem.setDueDate(exam.getStartDate());
 
 						StringBuilder examItemDescriptionBuilder = new StringBuilder(
@@ -340,7 +351,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 		}
 		
 		long timeLineId = timeLine.getTimeLineId();
-		item.setTimeLineId(timeLineId);
+		item.setTimeLine(timeLineId);
 		
 		try {
 			itemDao.insertItem(item);

@@ -5,16 +5,18 @@
 
 <mapper namespace="au.com.studyunsw.dao.AsgtItemDAO">
 	<!-- Insert batch -->
-	<insert id="insertAsgtItemBatch" useGeneratedKeys="true"
-		keyColumn="itemId">
+	<insert id="insertAsgtItemBatch" parameterType="java.util.List">
 		insert into AsgtItem (timeLine, description, course, assignment,
 		createAt, dueDate) values
 		<foreach collection="list" item="item" index="index"
-			separator=",">
+			separator=", ">
 			(#{item.timeLineId}, #{item.description},
-			#{item.courseCode}, #{item.assignmentId}, date(now()),
+			#{item.courseCode}, #{item.asgtId}, date(now()),
 			#{item.dueDate})
 		</foreach>
+		<selectKey resultType="long" order="AFTER" keyProperty="itemId">
+			select LAST_INSERT_ID();
+		</selectKey>
 	</insert>
 
 	<insert id="insertAsgtItem" parameterType="AsgtItem">
@@ -40,12 +42,13 @@
 		select * from AsgtItem
 	</select>
 
-	<select id="getItemById" parameterType="int" resultType="AsgtItem">
-		select *
+	<select id="getItemById" parameterType="long" resultType="AsgtItem">
+		select
+		*
 		from AsgtItem where itemId=#{itemId}
 	</select>
 
-	<select id="getItemsInTimeLine" parameterType="int" resultType="AsgtItem">
+	<select id="getItemsInTimeLine" parameterType="long" resultType="AsgtItem">
 		select * from AsgtItem where timeLine=#{timeLineId}
 	</select>
 
@@ -59,4 +62,9 @@
 		from AsgtItem where timeLine=#{0} and
 		dueDate&gt;#{1}
 	</select>
+
+	<delete id="removeItemInTimeLine" parameterType="long">
+		delete from
+		UserItem where timeLine=#{timeLineId}
+	</delete>
 </mapper>

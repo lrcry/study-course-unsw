@@ -27,12 +27,12 @@
 		select * from TimeLine
 	</select>
 
-	<select id="getLineById" parameterType="int" resultType="TimeLine">
+	<select id="getLineById" parameterType="long" resultType="TimeLine">
 		select *
 		from TimeLine where timeLineId=#{timeLineId}
 	</select>
 
-	<select id="getLineByUser" parameterType="int" resultType="TimeLine">
+	<select id="getLineByUser" parameterType="long" resultType="TimeLine">
 		select * from TimeLine where userId=#{userId}
 	</select>
 	

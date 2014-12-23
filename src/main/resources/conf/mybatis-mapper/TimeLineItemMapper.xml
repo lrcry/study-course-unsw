@@ -7,13 +7,13 @@
 	<insert id="insertItem" parameterType="UserItem">
 		insert into UserItem
 		(timeLine, description, createAt, dueDate) values (#{timeLineId},
-		#{description}, date(now), #{dueDate})
+		#{description}, date(now()), #{dueDate})
 	</insert>
 
 	<update id="updateItem" parameterType="UserItem">
 		update UserItem
 		set
-		timeLine=#{timeLineId}, description=#{description}, date(now),
+		timeLine=#{timeLineId}, description=#{description}, date(now()),
 		dueDate=#{dueDate} where itemId=#{itemId}
 	</update>
 
@@ -22,7 +22,7 @@
 		itemId=#{itemId}
 	</delete>
 
-	<delete id="removeItemInTimeLine" parameterType="int">
+	<delete id="removeItemInTimeLine" parameterType="long">
 		delete from
 		UserItem where timeLine=#{timeLineId}
 	</delete>
@@ -31,12 +31,12 @@
 		select * from UserItem
 	</select>
 
-	<select id="getItemById" parameterType="int" resultType="UserItem">
+	<select id="getItemById" parameterType="long" resultType="UserItem">
 		select *
 		from UserItem where itemId=#{itemId}
 	</select>
 
-	<select id="getItemsInTimeLine" parameterType="int" resultType="UserItem">
+	<select id="getItemsInTimeLine" parameterType="long" resultType="UserItem">
 		select * from UserItem where timeLine=#{timeLineId}
 	</select>
 

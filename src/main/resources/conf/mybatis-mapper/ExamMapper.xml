@@ -30,7 +30,7 @@
 		select * from Exam
 	</select>
 
-	<select id="getExamById" parameterType="int" resultType="Exam">
+	<select id="getExamById" parameterType="long" resultType="Exam">
 		select *
 		from Exam where examId=#{examId}
 	</select>

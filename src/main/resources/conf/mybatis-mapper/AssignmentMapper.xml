@@ -24,7 +24,7 @@
 		Assignment where assignmentId=#{assignmentId}
 	</delete>
 
-	<select id="getAssignmentById" parameterType="int" resultType="Assignment">
+	<select id="getAssignmentById" parameterType="long" resultType="Assignment">
 		select * from Assignment where assignmentId=#{assignmentId}
 	</select>
 

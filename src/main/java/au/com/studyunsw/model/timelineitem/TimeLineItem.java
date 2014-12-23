@@ -26,11 +26,11 @@ public class TimeLineItem {
 		this.itemId = itemId;
 	}
 
-	public long getTimeLineId() {
+	public long getTimeLine() {
 		return timeLineId;
 	}
 
-	public void setTimeLineId(long timeLineId) {
+	public void setTimeLine(long timeLineId) {
 		this.timeLineId = timeLineId;
 	}
 

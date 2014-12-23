@@ -25,27 +25,30 @@ create table Course (
 create table TimeLine (
 	timeLineId integer not null primary key auto_increment,
 	timeLineName varchar(128) default null,
-	userId integer not null references UserLogin(userId),
-	createAt date not null
+	userId integer not null,
+	createAt date not null,
+	foreign key (userId) references UserLogin(userId)
 ) default charset=utf8;
 
 create table Assignment (
 	assignmentId integer not null primary key auto_increment,
-	course char(8) not null references Course(courseCode),
+	course char(8) not null,
 	description text default null,
 	startDate date default null,
 	endDate date not null,
 	url varchar(256) default null,
-	nth integer default 0
+	nth integer default 0,
+	foreign key (course) references Course(courseCode)
 ) default charset=utf8;
 
 create table Exam (
 	examId integer not null primary key auto_increment,
-	course char(8) not null references Course(courseCode),
+	course char(8) not null,
 	materials varchar(128) default null,
 	startDate date default null,
 	examLocation varchar(256) default null,
-	examType tinyint(1) default 0
+	examType tinyint(1) default 0,
+	foreign key (course) references Course(courseCode)
 ) default charset=utf8;
 
 /*
@@ -71,36 +74,45 @@ create table TimeLineItem (
 
 create table AsgtItem (
 	itemId integer not null primary key auto_increment,
-	timeLine integer not null references TimeLine(timeLineId),
+	timeLine integer not null,
 	description text default null,
-	course char(8) not null references Course(courseCode),
-	assignment integer not null references Assignment(assignmentId),
+	course char(8) not null,
+	assignment integer not null,
 	createAt date default null,
-	dueDate date not null
+	dueDate date not null,
+	foreign key (timeLine) references TimeLine(timeLineId),
+	foreign key (course) references Course(courseCode),
+	foreign key (assignment) references Assignment(assignmentId)
 ) default charset=utf8;
 
 create table ExamItem (
 	itemId integer not null primary key auto_increment,
-	timeLine integer not null references TimeLine(timeLineId),
+	timeLine integer not null,
 	description text default null,
-	course char(8) not null references Course(courseCode),
-	exam integer not null references Exam(examId),
+	course char(8) not null,
+	exam integer not null,
 	createAt date default null,
-	dueDate date not null
+	dueDate date not null,
+	foreign key (timeLine) references TimeLine(timeLineId),
+	foreign key (course) references Course(courseCode),
+	foreign key (exam) references Exam(examId)
 ) default charset=utf8;
 
 create table UserItem (
 	itemId integer not null primary key auto_increment,
-	timeLine integer not null references TimeLine(timeLineId),
+	timeLine integer not null,
 	description text default null,
 	createAt date default null,
-	dueDate date not null
+	dueDate date not null,
+	foreign key (timeLine) references TimeLine(timeLineId)
 ) default charset=utf8;
 
 create table UserCourse (
-	user integer not null references UserLogin(userId),
-	course char(8) not null references Course(courseCode),
-	primary key (user, course)
+	user integer not null,
+	course char(8) not null,
+	primary key (user, course),
+	foreign key (user) references UserLogin(userId),
+	foreign key (course) references Course(courseCode)
 ) default charset=utf8;
 
 /* Indexes */

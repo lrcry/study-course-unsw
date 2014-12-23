@@ -31,11 +31,11 @@ public class Assignment {
 		this.assignmentId = assignmentId;
 	}
 
-	public String getCourseCode() {
+	public String getCourse() {
 		return courseCode;
 	}
 
-	public void setCourseCode(String courseCode) {
+	public void setCourse(String courseCode) {
 		this.courseCode = courseCode;
 	}
 
@@ -63,11 +63,11 @@ public class Assignment {
 		this.endDate = endDate;
 	}
 
-	public String getWebsiteUrl() {
+	public String getUrl() {
 		return websiteUrl;
 	}
 
-	public void setWebsiteUrl(String websiteUrl) {
+	public void setUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
 	}
 

@@ -18,9 +18,6 @@ public interface TimeLineService {
 
 	DueDateLineOnTime getTimeLineById(long timeLineId);
 
-	List<TimeLineItem> getAllItems();
-
-	TimeLineItem getItemById(long itemId);
 
 	/**
 	 * Get all the items from a time line<br/>

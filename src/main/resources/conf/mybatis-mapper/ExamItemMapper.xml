@@ -5,7 +5,7 @@
   
 <mapper namespace="au.com.studyunsw.dao.ExamItemDAO">
 	<!-- Insert batch -->
-	<insert id="insertExamItemBatch" useGeneratedKeys="true"
+	<insert id="insertExamItemBatch" parameterType="java.util.List" useGeneratedKeys="true"
 		keyColumn="itemId">
 		insert into ExamItem (timeLine, description, course, exam,
 		createAt, dueDate) values
@@ -40,12 +40,12 @@
 		select * from ExamItem
 	</select>
 
-	<select id="getItemById" parameterType="int" resultType="ExamItem">
+	<select id="getItemById" parameterType="long" resultType="ExamItem">
 		select *
 		from ExamItem where itemId=#{itemId}
 	</select>
 
-	<select id="getItemsInTimeLine" parameterType="int" resultType="ExamItem">
+	<select id="getItemsInTimeLine" parameterType="long" resultType="ExamItem">
 		select * from ExamItem where timeLine=#{timeLineId}
 	</select>
 
@@ -58,4 +58,9 @@
 		select * from ExamItem where timeLine=#{0} and
 		dueDate&gt;#{1}
 	</select>
+	
+	<delete id="removeItemInTimeLine" parameterType="long">
+		delete from
+		UserItem where timeLine=#{timeLineId}
+	</delete>
 </mapper>

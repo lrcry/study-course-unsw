@@ -19,12 +19,12 @@
 		UserCourse
 	</select>
 
-	<select id="getCoursesSelectedByUser" resultType="UserCourse">
+	<select id="getCoursesSelectedByUser" parameterType="long" resultType="UserCourse">
 		select * from
 		UserCourse where user=#{userId}
 	</select>
 
-	<select id="getUsersInvolvedInCourse" resultType="UserCourse">
+	<select id="getUsersInvolvedInCourse" parameterType="java.lang.String" resultType="UserCourse">
 		select * from UserCourse where course=#{courseCode}
 	</select>
 </mapper>

@@ -35,7 +35,7 @@
 		select * from UserLogin
 	</select>
 
-	<select id="getUserById" parameterType="int" resultType="User">
+	<select id="getUserById" parameterType="long" resultType="User">
 		select *
 		from UserLogin where userId={#userId}
 	</select>

@@ -8,11 +8,11 @@ package au.com.studyunsw.model.timelineitem;
 public class SystemItem extends TimeLineItem {
 	private String courseCode;
 
-	public String getCourseCode() {
+	public String getCourse() {
 		return courseCode;
 	}
 
-	public void setCourseCode(String courseCode) {
+	public void setCourse(String courseCode) {
 		this.courseCode = courseCode;
 	}
 }
