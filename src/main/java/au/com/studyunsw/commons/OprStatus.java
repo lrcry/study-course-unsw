@@ -28,5 +28,6 @@ public class OprStatus {
 	public static final int USER_NOT_LOGIN_YET = 700;
 	public static final int USERNAME_NOT_EXIST = 701;
 	public static final int USER_PASSWORD_INCORRECT = 702;
-	public static final int USER_NO_COURSE_SELECTED = 703;
+	public static final int USERNAME_ALREADY_EXIST = 703;
+	public static final int USER_NO_COURSE_SELECTED = 704;
 }

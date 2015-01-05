@@ -22,7 +22,7 @@ public class InfoEncoder {
 	 *            input information
 	 * @return SHA1 encoded string
 	 */
-	public String sha1Encode(String input) {
+	public static String sha1Encode(String input) {
 		String output = null;
 		byte[] digested = msgDigest(input, SHA1_ALGORITHM);
 		output = getFormattedText(digested);
@@ -37,7 +37,7 @@ public class InfoEncoder {
 	 *            input information
 	 * @return MD5 encoded string
 	 */
-	public String md5Encode(String input) {
+	public static String md5Encode(String input) {
 		String output = null;
 		byte[] digested = msgDigest(input, MD5_ALGORITHM);
 		output = getFormattedText(digested);
@@ -54,7 +54,7 @@ public class InfoEncoder {
 	 *            algorithm for digest
 	 * @return digested bytes array
 	 */
-	private byte[] msgDigest(String input, String algorithm) {
+	private static byte[] msgDigest(String input, String algorithm) {
 		byte[] digested = null;
 		try {
 			MessageDigest md = MessageDigest.getInstance(algorithm);
@@ -74,7 +74,7 @@ public class InfoEncoder {
 	 *            input bytes
 	 * @return encoded hex string
 	 */
-	private String getFormattedText(byte[] input) {
+	private static String getFormattedText(byte[] input) {
 		StringBuilder builder = null;
 		int length = input.length;
 		builder = new StringBuilder(length * 2);
