@@ -11,14 +11,14 @@ public interface UserService {
 	/**
 	 * User login<br />
 	 * @param user user object
-	 * @return if login successful
+	 * @return operation status code
 	 */
-	boolean login(User user);
+	int login(User user);
 	
 	/**
 	 * User registration<br />
 	 * @param user user object
-	 * @return if registration successful
+	 * @return operation status code
 	 */
-	boolean register(User user);
+	int register(User user);
 }
