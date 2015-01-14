@@ -6,6 +6,7 @@ import au.com.studyunsw.model.timelineitem.TimeLineItem;
 
 /**
  * Compare two items in a time line by their due dates<br/>
+ * 
  * @author range-ubuntu
  *
  */

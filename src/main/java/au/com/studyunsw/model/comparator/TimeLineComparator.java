@@ -4,6 +4,12 @@ import java.util.Comparator;
 
 import au.com.studyunsw.model.DueDateLineOnTime;
 
+/**
+ * Implementor of the comparator making comparison of two time lines
+ * 
+ * @author range
+ *
+ */
 public class TimeLineComparator implements Comparator<DueDateLineOnTime> {
 
 	@Override

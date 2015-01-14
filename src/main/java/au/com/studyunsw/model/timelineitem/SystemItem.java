@@ -2,6 +2,7 @@ package au.com.studyunsw.model.timelineitem;
 
 /**
  * Model of system created items<br/>
+ * 
  * @author range-ubuntu
  *
  */

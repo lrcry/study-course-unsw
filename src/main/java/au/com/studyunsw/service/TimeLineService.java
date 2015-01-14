@@ -8,7 +8,6 @@ import au.com.studyunsw.model.DueDateLineOnTime;
 /**
  * Service generating due date time line.<br/>
  * A user can use it if and only if it has logged in.<br/>
- * U have a class, Assignment,
  * 
  * @author range-ubuntu
  * 
@@ -17,7 +16,6 @@ public interface TimeLineService {
 	List<DueDateLineOnTime> getAllTimeLine();
 
 	DueDateLineOnTime getTimeLineById(long timeLineId);
-
 
 	/**
 	 * Get all the items from a time line<br/>
@@ -111,7 +109,8 @@ public interface TimeLineService {
 	 *            item object
 	 * @return operation status code
 	 */
-//	int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem item);
+	// int updateSystemItemOfTimeLine(DueDateLineOnTime timeLine, TimeLineItem
+	// item);
 
 	/**
 	 * Update a user-created item of some time line<br/>

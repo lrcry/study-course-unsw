@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Base model of time line items<br/>
+ * 
  * @author range-ubuntu
  *
  */

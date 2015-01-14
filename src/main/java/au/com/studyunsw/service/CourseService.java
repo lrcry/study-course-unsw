@@ -12,21 +12,21 @@ import au.com.studyunsw.model.*;
  */
 public interface CourseService {
 	/**
-	 * Get information of all courses<br />
+	 * Get information of all courses<br/>
 	 * 
 	 * @return list of courses, or null if no course at all
 	 */
 	List<CourseBasicInfo> getAllCourse();
 
 	/**
-	 * Get brief information of all courses<br />
+	 * Get brief information of all courses<br/>
 	 * 
 	 * @return <courseCode, courseName>, or null if no course at all
 	 */
 	Map<String, String> getAllCourseBrief();
 
 	/**
-	 * Get information of a course by its course code<br />
+	 * Get information of a course by its course code<br/>
 	 * 
 	 * @param courseCode
 	 *            course code
@@ -35,7 +35,7 @@ public interface CourseService {
 	CourseBasicInfo getCourseByCourseCode(String courseCode);
 
 	/**
-	 * Get all assignments of a course<br />
+	 * Get all assignments of a course<br/>
 	 * 
 	 * @param courseCode
 	 *            course code
@@ -44,7 +44,7 @@ public interface CourseService {
 	List<Assignment> getAllAssignmentsOfCourse(String courseCode);
 
 	/**
-	 * Get Nth assignment of a course<br />
+	 * Get Nth assignment of a course<br/>
 	 * 
 	 * @param courseCode
 	 *            course code
@@ -55,18 +55,21 @@ public interface CourseService {
 	Assignment getNthAssignmentOfCourse(String courseCode, int nth);
 
 	/**
-	 * Get all exams of a course<br />
+	 * Get all exams of a course<br/>
 	 * 
 	 * @param courseCode
 	 *            course code
 	 * @return list of exams, or null if no assignment at all
 	 */
 	List<Exam> getAllExamsOfCourse(String courseCode);
-	
+
 	/**
-	 * Get exams of some type (e.g. mid-term, final) of a course<br />
-	 * @param courseCode course code
-	 * @param type exam type
+	 * Get exams of some type (e.g. mid-term, final) of a course<br/>
+	 * 
+	 * @param courseCode
+	 *            course code
+	 * @param type
+	 *            exam type
 	 * @return exams which in the type
 	 */
 	List<Exam> getSomeTypeExamOfCourse(String courseCode, int type);

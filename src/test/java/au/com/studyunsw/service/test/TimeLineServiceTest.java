@@ -37,6 +37,7 @@ public class TimeLineServiceTest {
 		tlDao = (TimeLineDAO) context.getBean("timeLineDAO");
 	}
 
+	@Test
 	public void testUserItem() throws Exception {
 		DueDateLineOnTime timeLine = tlDao.getLineById(4);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -49,7 +50,7 @@ public class TimeLineServiceTest {
 		tlService.addItemToTimeLine(timeLine, item);
 	}
 
-	@Test
+//	@Test
 	public void testQuery() throws Exception {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		long start = System.currentTimeMillis();

@@ -1,3 +1,5 @@
+use studyunsw;
+
 /* User */
 insert into UserLogin values (1, 'test', 'testest', date(now()), '');
 insert into UserLogin values (2, 'admin', 'admin', date(now()), '');

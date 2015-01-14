@@ -1,5 +1,5 @@
 /* Create database and tables */
-create database studyunsw;
+create database studyunsw default charset=utf8;
 
 use studyunsw;
 

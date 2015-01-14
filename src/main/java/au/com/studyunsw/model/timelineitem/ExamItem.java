@@ -1,5 +1,11 @@
 package au.com.studyunsw.model.timelineitem;
 
+/**
+ * Model for exam items<br/>
+ * 
+ * @author range
+ *
+ */
 public class ExamItem extends SystemItem {
 	private long examId;
 

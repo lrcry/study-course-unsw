@@ -28,26 +28,32 @@ import au.com.studyunsw.model.timelineitem.TimeLineItem;
 import au.com.studyunsw.model.timelineitem.UserItem;
 import au.com.studyunsw.service.TimeLineService;
 
+/**
+ * Implementor of time line service<br/>
+ * 
+ * @author range
+ *
+ */
 @Service
 public class TimeLineServiceImpl implements TimeLineService {
 	@Autowired
 	private TimeLineDAO lineDao;
-	
+
 	@Autowired
 	private TimeLineItemDAO itemDao;
-	
+
 	@Autowired
 	private AsgtItemDAO asgtDao;
-	
+
 	@Autowired
 	private ExamItemDAO examDao;
-	
+
 	@Autowired
 	private AsgtDAO aDao;
-	
+
 	@Autowired
 	private ExamDAO eDao;
-	
+
 	@Autowired
 	private UserCourseDAO userCourseDao;
 
@@ -260,7 +266,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 
 			List<UserCourse> userCourses = userCourseDao
 					.getCoursesSelectedByUser(userId);
-			
+
 			if (userCourses == null || userCourses.size() == 0) {
 				return OprStatus.USER_NO_COURSE_SELECTED;
 			}
@@ -324,12 +330,12 @@ public class TimeLineServiceImpl implements TimeLineService {
 					}
 				}
 			}
-			
+
 			// if no arrangement yet in all the courses
-			if (asgtItems.size() == 0 && examItems.size() == 0) { 
+			if (asgtItems.size() == 0 && examItems.size() == 0) {
 				return OprStatus.NO_ARRANGEMENT_IN_ALL_COURSES_AND_EXAMS;
 			}
-			
+
 			asgtDao.insertAsgtItemBatch(asgtItems);
 			examDao.insertExamItemBatch(examItems);
 		} catch (Exception e) {
@@ -345,14 +351,14 @@ public class TimeLineServiceImpl implements TimeLineService {
 		if (timeLine.getUserId() == 0) {
 			return OprStatus.USER_NOT_LOGIN_YET;
 		}
-		
+
 		if (item.getDueDate() == null) {
 			return OprStatus.NO_DUEDATE_IN_ITEM;
 		}
-		
+
 		long timeLineId = timeLine.getTimeLineId();
 		item.setTimeLine(timeLineId);
-		
+
 		try {
 			itemDao.insertItem(item);
 			lineDao.updateLine(timeLine);
@@ -360,7 +366,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 			e.printStackTrace();
 			return OprStatus.DAO_EXCEPTION;
 		}
-		
+
 		return OprStatus.SUCCESS;
 	}
 
@@ -370,7 +376,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 		if (timeLine.getUserId() == 0) {
 			return OprStatus.USER_NOT_LOGIN_YET;
 		}
-		
+
 		try {
 			itemDao.updateItem(item);
 			lineDao.updateLine(timeLine);
@@ -378,7 +384,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 			e.printStackTrace();
 			return OprStatus.DAO_EXCEPTION;
 		}
-		
+
 		return OprStatus.SUCCESS;
 	}
 
@@ -388,7 +394,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 		if (timeLine.getUserId() == 0) {
 			return OprStatus.USER_NOT_LOGIN_YET;
 		}
-		
+
 		try {
 			itemDao.removeItem(item);
 			lineDao.updateLine(timeLine);
@@ -396,7 +402,7 @@ public class TimeLineServiceImpl implements TimeLineService {
 			e.printStackTrace();
 			return OprStatus.DAO_EXCEPTION;
 		}
-		
+
 		return OprStatus.SUCCESS;
 	}
 }
